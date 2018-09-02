@@ -14,6 +14,7 @@ const clovaSkillHandler = clova.Client
     .configureSkill()
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
+      responseHelper.setSessionAttributes(attributesInfo)
       responseHelper.setSimpleSpeech({
         lang: 'ja',
         type: 'PlainText',
@@ -25,25 +26,26 @@ const clovaSkillHandler = clova.Client
     .onIntentRequest(async responseHelper => {
         const intent = responseHelper.getIntentName();
         // const sessionId = responseHelper.getSessionId();
+        let info = responseHelper.getSessionAttributes();
         let speech;
         switch (intent) {
           case 'StartIntent':
             speech = {
               lang: 'ja',
               type: 'PlainText',
-              value: LAUNCH_MESSAGE
+              value: LAUNCH_MESSAGE  // TODO
             }
             responseHelper.setSimpleSpeech(speech)
             break;
 
-            default:
-              speech = {
-                lang: 'ja',
-                type: 'PlainText',
-                value: '想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。'
-              }
-              responseHelper.setSimpleSpeech(speech)
-              break;
+          default:
+            speech = {
+              lang: 'ja',
+              type: 'PlainText',
+              value: '想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。'
+            }
+            responseHelper.setSimpleSpeech(speech)
+            break;
           }
         })
 
