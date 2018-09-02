@@ -2,15 +2,23 @@ const clova = require('@line/clova-cek-sdk-nodejs');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ヒット&ブロー、へようこそ。'
+                     + 'ゲームを始めたいときは、スタート、と言ってくれ。'
+                     + 'ゲームのルールがわからないときは、ルールを教えて、と言ってくれ。';
+
+var attributesInfo = {
+  start : 'none'
+}
+
 const clovaSkillHandler = clova.Client
     .configureSkill()
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
-        responseHelper.setSimpleSpeech({
-            lang: 'ja',
-            type: 'PlainText',
-            value: 'スキルが起動されました。',
-        });
+      responseHelper.setSimpleSpeech({
+        lang: 'ja',
+        type: 'PlainText',
+        value: LAUNCH_MESSAGE
+      });
     })
 
     // カスタムインテント or ビルトインインテント
@@ -23,7 +31,7 @@ const clovaSkillHandler = clova.Client
             speech = {
               lang: 'ja',
               type: 'PlainText',
-              value: 'スタートインテントが起動しました。'
+              value: LAUNCH_MESSAGE
             }
             responseHelper.setSimpleSpeech(speech)
             break;
@@ -41,7 +49,7 @@ const clovaSkillHandler = clova.Client
 
     //終了時
     .onSessionEndedRequest(responseHelper => {
-        // const sessionId = responseHelper.getSessionId();
+      // const sessionId = responseHelper.getSessionId();
     })
     .handle();
 
