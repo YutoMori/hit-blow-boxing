@@ -43,7 +43,7 @@ const clovaSkillHandler = clova.Client
             speech = {
               lang: 'ja',
               type: 'PlainText',
-              value: '${responseHelper.responseObject.sessionAttributes.count}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。'
+              value: `${responseHelper.responseObject.sessionAttributes.count}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
             }
             responseHelper.setSimpleSpeech(speech)
             break;
