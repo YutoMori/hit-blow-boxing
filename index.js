@@ -26,6 +26,7 @@ const clovaSkillHandler = clova.Client
     // カスタムインテント or ビルトインインテント
     .onIntentRequest(async responseHelper => {
         const intent = responseHelper.getIntentName();
+        responseHelper.setSessionAttributes(attributesInfo)
         // const sessionId = responseHelper.getSessionId();
         let info = responseHelper.getSessionAttributes()
         let speech;
