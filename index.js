@@ -7,7 +7,8 @@ const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ヒット&ブ�
                      + 'ゲームのルールがわからないときは、ルールを教えて、と言ってくれ。';
 
 var attributesInfo = {
-  start : 'none'
+  start: 'none',
+  end: 'none'
 }
 
 const clovaSkillHandler = clova.Client
@@ -26,7 +27,7 @@ const clovaSkillHandler = clova.Client
     .onIntentRequest(async responseHelper => {
         const intent = responseHelper.getIntentName();
         // const sessionId = responseHelper.getSessionId();
-        let info = responseHelper.getSessionAttributes();
+        let info = responseHelper.getSessionAttributes()
         let speech;
         switch (intent) {
           case 'StartIntent':
@@ -62,7 +63,7 @@ const clovaSkillHandler = clova.Client
     app.post('/clova', clovaMiddleware, clovaSkillHandler);
     
     // リクエストの検証を行わない
-    //app.post('/clova', bodyParser.json(), clovaSkillHandler);
+    app.post('/clova', bodyParser.json(), clovaSkillHandler);
     
     const port = process.env.PORT || 3000;
     app.listen(port, () => {
