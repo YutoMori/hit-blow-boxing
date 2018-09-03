@@ -5,17 +5,17 @@ const bodyParser = require('body-parser');
 const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ヒット&ブロー、へようこそ。'
                      + 'ゲームを始めたいときは、スタート、と言ってくれ。'
                      + 'ゲームのルールがわからないときは、ルールを教えて、と言ってくれ。';
-
+/*
 var attributesInfo = {
   start: 'none',
   end: 'none'
 }
-
+*/
 const clovaSkillHandler = clova.Client
     .configureSkill()
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
-      responseHelper.setSessionAttributes(attributesInfo)
+      responseHelper.responseObject.sessionAttributes.count = 0;
       responseHelper.setSimpleSpeech({
         lang: 'ja',
         type: 'PlainText',
@@ -26,9 +26,8 @@ const clovaSkillHandler = clova.Client
     // カスタムインテント or ビルトインインテント
     .onIntentRequest(async responseHelper => {
         const intent = responseHelper.getIntentName();
-        responseHelper.setSessionAttributes(attributesInfo)
+        responseHelper.responseObject.sessionAttributes.count = 1;
         // const sessionId = responseHelper.getSessionId();
-        let info = responseHelper.getSessionAttributes()
         let speech;
         switch (intent) {
           case 'StartIntent':
@@ -44,7 +43,7 @@ const clovaSkillHandler = clova.Client
             speech = {
               lang: 'ja',
               type: 'PlainText',
-              value: '想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。'
+              value: '${responseHelper.responseObject.sessionAttributes.count}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。'
             }
             responseHelper.setSimpleSpeech(speech)
             break;
