@@ -2,21 +2,28 @@ const clova = require('@line/clova-cek-sdk-nodejs');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ヒット&ブロー、へようこそ。'
-                     + 'ゲームを始めたいときは、スタート、と言ってくれ。'
-                     + 'ゲームのルールがわからないときは、ルールを教えて、と言ってくれ。';
-
 const clovaSkillHandler = clova.Client
     .configureSkill()
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
       // TODO
       responseHelper.responseObject.sessionAttributes.count = 0;
-      responseHelper.setSimpleSpeech({
-        lang: 'ja',
-        type: 'PlainText',
-        value: LAUNCH_MESSAGE
-      });
+
+      const launch_mp3 = process.env.LAUNCH_MP3;
+      const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ヒットブローに、ようこそ！'
+                     + 'ゲームを始めたいときは、スタート、と言ってくれ。'
+                     + 'ゲームのルールがわからないときは、ルールを教えて、と言ってくれ。';
+      responseHelper.setSpeechList([
+        {
+          type: "URL",
+          lang: "" ,
+          value: launch_mp3
+        }, {
+          lang: 'ja',
+          type: 'PlainText',
+          value: LAUNCH_MESSAGE
+        }
+      ]);
     })
 
     // カスタムインテント or ビルトインインテント
