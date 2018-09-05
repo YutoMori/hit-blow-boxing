@@ -7,7 +7,7 @@ const clovaSkillHandler = clova.Client
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
       // TODO
-      responseHelper.responseObject.sessionAttributes.count = 0;
+      responseHelper.responseObject.sessionAttributes.answer = 0;
 
       const launch_mp3 = process.env.LAUNCH_MP3;
       const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ナンバーパンチに、ようこそ！'
@@ -29,17 +29,16 @@ const clovaSkillHandler = clova.Client
     // カスタムインテント or ビルトインインテント
     .onIntentRequest(async responseHelper => {
       const intent = responseHelper.getIntentName();
-      responseHelper.responseObject.sessionAttributes.count = 1;
       // const sessionId = responseHelper.getSessionId();
       let speech;
       switch (intent) {
         case 'DescriptionIntent':
           const DESCRIPTION_MESSAGE = 'ナンバーパンチのルールを説明するぞ。'
-                                    + 'このゲームは3つの数字を当てるゲームだ！ '
+                                    + 'このゲームは3つの数字を当てるゲームだ。'
                                     + '君の回答に、ヒットとブローの数で答えるぞ。'
                                     + 'ヒットは数字も位置も同じで、ブローは数字は当たっているけど位置が違うんだ。'
                                     + '数字に重複はないから気をつけてくれ。'
-                                    + 'よくわからない場合は、検索サイトで「ヒット&ブロー ルール」で検索してくれ。'
+                                    + 'よくわからない場合は、検索サイトで、ヒット&ブロー ルール、で検索してくれ。'
                                     + 'さあ、「スタート」と言ってゲームを始めよう。';
           responseHelper.setSimpleSpeech({
             lang: 'ja',
@@ -50,6 +49,18 @@ const clovaSkillHandler = clova.Client
 
         case 'StartIntent':
           const start_match_mp3 = process.env.START_MATCH_MP3;
+          responseHelper.responseObject.sessionAttributes.answer = 0;
+
+          // 正解を決める
+          var r;
+          var valid_answer = [];
+          const number_list = [0,1,2,3,4,5,6,7,8,9];
+          for(var i=0; i<3; i++){
+            r = Math.floor(Math.random() * number_list.length);
+            valid_answer[i] = number_list[r];
+            number_list.splice(r, 1);
+          }
+          responseHelper.responseObject.sessionAttributes.answer = valid_answer;
           responseHelper.setSpeechList([
             {
               type: "URL",
