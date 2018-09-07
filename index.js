@@ -60,7 +60,7 @@ const clovaSkillHandler = clova.Client
             valid_answer[i] = number_list[r];
             number_list.splice(r, 1);
           }
-          responseHelper.responseObject.sessionAttributes.answer = valid_answer;
+          responseHelper.responseObject.sessionAttributes.answer = Number(valid_answer);
           responseHelper.setSpeechList([
             {
               type: "URL",
