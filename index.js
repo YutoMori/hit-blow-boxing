@@ -76,7 +76,7 @@ const clovaSkillHandler = clova.Client
 
         case 'HitIntent':
           var att_ans = responseHelper.responseObject.sessionAttributes.answer;
-          const slots = responseHelper.getSlots();
+          /*const slots = responseHelper.getSlots();
           var ask_ans = slots.number;
           var numHit = 0;
           var numBlow = 0;
@@ -91,7 +91,7 @@ const clovaSkillHandler = clova.Client
                 }
               }
             }
-          }
+          }*/
           responseHelper.setSpeechList([
             {
               type: "URL",
@@ -100,7 +100,7 @@ const clovaSkillHandler = clova.Client
             }, {
               lang: 'ja',
               type: 'PlainText',
-              value: `${numHit}ヒット、${numBlow}ブローです。`
+              value: `${att_ans}`
             }
           ]);
           break;
