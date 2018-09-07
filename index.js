@@ -76,9 +76,11 @@ const clovaSkillHandler = clova.Client
 
         case 'HitIntent':
           var att_ans = responseHelper.responseObject.sessionAttributes.answer;
-          /*const slots = responseHelper.getSlots();
+          // TODO change mp3 url
+          const start_match_mp3 = process.env.START_MATCH_MP3;
+          const slots = responseHelper.getSlots();
           var ask_ans = slots.number;
-          var numHit = 0;
+          /*var numHit = 0;
           var numBlow = 0;
 
           for(var i=0; i<3; i++){
@@ -100,7 +102,7 @@ const clovaSkillHandler = clova.Client
             }, {
               lang: 'ja',
               type: 'PlainText',
-              value: `${att_ans}`
+              value: `${att_ans}, ${ask_ans}`
             }
           ]);
           break;
