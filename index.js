@@ -77,7 +77,7 @@ const clovaSkillHandler = clova.Client
         case 'HitIntent':
           var att_ans = responseHelper.responseObject.sessionAttributes.answer;
           // TODO change mp3 url
-          const start_match_mp3 = process.env.START_MATCH_MP3;
+          const start_match_mp31 = process.env.START_MATCH_MP3;
           const slots = responseHelper.getSlots();
           var ask_ans = slots.number;
           /*var numHit = 0;
@@ -98,7 +98,7 @@ const clovaSkillHandler = clova.Client
             {
               type: "URL",
               lang: "" ,
-              value: start_match_mp3
+              value: start_match_mp31
             }, {
               lang: 'ja',
               type: 'PlainText',
