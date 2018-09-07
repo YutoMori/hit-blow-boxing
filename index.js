@@ -69,10 +69,42 @@ const clovaSkillHandler = clova.Client
             }, {
               lang: 'ja',
               type: 'PlainText',
-              value: 'スタートインテントが起動しました。',
+              value: 'スタートインテントが起動しました。'
             }
           ]);
           break;
+
+        case 'HitIntent':
+          var att_ans = responseHelper.responseObject.sessionAttributes.answer;
+          const slots = responseHelper.getSlots();
+          var ask_ans = slots.number;
+          var numHit = 0;
+          var numBlow = 0;
+
+          for(var i=0; i<3; i++){
+            for(var j=0; j<3; j++){
+              if(att_ans[i] == ask_ans[j]){
+                if(i == j){
+                  numHit++;
+                } else {
+                  numBlow++;
+                }
+              }
+            }
+          }
+          responseHelper.setSpeechList([
+            {
+              type: "URL",
+              lang: "" ,
+              value: start_match_mp3
+            }, {
+              lang: 'ja',
+              type: 'PlainText',
+              value: `${numHit}ヒット、${numBlow}ブローです。`
+            }
+          ]);
+          break;
+
 
         default:
           speech = {
