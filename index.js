@@ -52,14 +52,15 @@ const clovaSkillHandler = clova.Client
           responseHelper.responseObject.sessionAttributes.answer = 0;
 
           // 正解を決める
-          var r;
-          var valid_answer = [];
-          const number_list = [0,1,2,3,4,5,6,7,8,9];
-          for(var i=0; i<3; i++){
-            r = Math.floor(Math.random() * number_list.length);
-            valid_answer[i] = number_list[r];
-            number_list.splice(r, 1);
+          let r;
+          let valid_answer = "";
+          let number_list = "0123456789";
+          for(let i=0; i<3; i++){
+              r = Math.floor(Math.random() * number_list.length);
+              valid_answer += number_list[r];
+              number_list = number_list.slice(0,r) + number_list.slice(r+1);
           }
+
           responseHelper.responseObject.sessionAttributes.answer = Number(valid_answer);
           responseHelper.setSpeechList([
             {
