@@ -76,7 +76,7 @@ const clovaSkillHandler = clova.Client
           break;
 
         case 'HitIntent':
-          var att_ans = Number(responseHelper.responseObject.sessionAttributes.answer);
+          var att_ans = responseHelper.responseObject.sessionAttributes.answer;
           // TODO change mp3 url
           const start_match_mp31 = process.env.START_MATCH_MP3;
           const slots = responseHelper.getSlots();
@@ -114,7 +114,7 @@ const clovaSkillHandler = clova.Client
             lang: 'ja',
             type: 'PlainText',
             // TODO
-            value: `${responseHelper.responseObject.sessionAttributes.count}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
+            value: `${responseHelper.responseObject.sessionAttributes.answer}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
           }
           responseHelper.setSimpleSpeech(speech)
           break;
