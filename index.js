@@ -76,7 +76,6 @@ const clovaSkillHandler = clova.Client
           break;
 
         case 'HitIntent':
-          var att_ans = responseHelper.responseObject.sessionAttributes.answer;
           // TODO change mp3 url
           const start_match_mp31 = process.env.START_MATCH_MP3;
           const slots = responseHelper.getSlots();
@@ -103,7 +102,7 @@ const clovaSkillHandler = clova.Client
             }, {
               lang: 'ja',
               type: 'PlainText',
-              value: att_ans
+              value: responseHelper.responseObject.sessionAttributes + "desu"
             }
           ]);
           break;
