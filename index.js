@@ -89,7 +89,8 @@ const clovaSkillHandler = clova.Client
           const start_match_mp31 = process.env.START_MATCH_MP3;
           const slots = responseHelper.getSlots();
           var ask_ans = slots.number;
-          /*var numHit = 0;
+          let att_ans = att_info.answer;
+          var numHit = 0;
           var numBlow = 0;
 
           for(var i=0; i<3; i++){
@@ -102,7 +103,7 @@ const clovaSkillHandler = clova.Client
                 }
               }
             }
-          }*/
+          }
 
           responseHelper.setSessionAttributes(att_info)
           responseHelper.setSpeechList([
@@ -113,7 +114,7 @@ const clovaSkillHandler = clova.Client
             }, {
               lang: 'ja',
               type: 'PlainText',
-              value: att_info.answer + "desu"
+              value: numHit + "ヒット、" + numBlow + "ブロー"
             }
           ]);
           break;
