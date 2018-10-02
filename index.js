@@ -7,7 +7,7 @@ const clovaSkillHandler = clova.Client
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
       // TODO
-      responseHelper.responseObject.sessionAttributes.answer = 0;
+      responseHelper.setSessionAttributes({})
 
       const launch_mp3 = process.env.LAUNCH_MP3;
       const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ナンバーパンチに、ようこそ！'
@@ -49,7 +49,7 @@ const clovaSkillHandler = clova.Client
 
         case 'StartIntent':
           const start_match_mp3 = process.env.START_MATCH_MP3;
-          responseHelper.responseObject.sessionAttributes.answer = 0;
+          responseHelper.setSessionAttributes.answer = 0;
 
           // 正解を決める
           let r;
@@ -61,7 +61,7 @@ const clovaSkillHandler = clova.Client
               number_list = number_list.slice(0,r) + number_list.slice(r+1);
           }
 
-          responseHelper.responseObject.sessionAttributes.answer = Number(valid_answer);
+          responseHelper.setsessionAttributes.answer = Number(valid_answer);
           responseHelper.setSpeechList([
             {
               type: "URL",
@@ -102,7 +102,7 @@ const clovaSkillHandler = clova.Client
             }, {
               lang: 'ja',
               type: 'PlainText',
-              value: responseHelper.responseObject.sessionAttributes + "desu"
+              value: responseHelper.getsessionAttributes.answer + "desu"
             }
           ]);
           break;
@@ -113,7 +113,7 @@ const clovaSkillHandler = clova.Client
             lang: 'ja',
             type: 'PlainText',
             // TODO
-            value: `${responseHelper.responseObject.sessionAttributes.answer}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
+            value: `${responseHelper.getsessionAttributes.answer}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
           }
           responseHelper.setSimpleSpeech(speech)
           break;
