@@ -68,7 +68,7 @@ const clovaSkillHandler = clova.Client
               number_list = number_list.slice(0,r) + number_list.slice(r+1);
           }
 
-          att_info.answer = Number(valid_answer);
+          att_info.answer = valid_answer;
           responseHelper.setSessionAttributes(att_info)
 
           responseHelper.setSpeechList([
