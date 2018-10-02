@@ -103,6 +103,8 @@ const clovaSkillHandler = clova.Client
               }
             }
           }*/
+
+          responseHelper.setSessionAttributes(att_info)
           responseHelper.setSpeechList([
             {
               type: "URL",
