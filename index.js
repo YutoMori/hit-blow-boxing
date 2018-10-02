@@ -7,7 +7,7 @@ const clovaSkillHandler = clova.Client
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
       // TODO
-      responseHelper.setSessionAttributes({})
+      responseHelper.setSessionAttributes.answer = 0;
 
       const launch_mp3 = process.env.LAUNCH_MP3;
       const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ナンバーパンチに、ようこそ！'
@@ -61,7 +61,7 @@ const clovaSkillHandler = clova.Client
               number_list = number_list.slice(0,r) + number_list.slice(r+1);
           }
 
-          responseHelper.setsessionAttributes.answer = Number(valid_answer);
+          responseHelper.setSessionAttributes.answer = Number(valid_answer);
           responseHelper.setSpeechList([
             {
               type: "URL",
@@ -102,7 +102,7 @@ const clovaSkillHandler = clova.Client
             }, {
               lang: 'ja',
               type: 'PlainText',
-              value: responseHelper.getsessionAttributes.answer + "desu"
+              value: responseHelper.getSessionAttributes.answer + "desu"
             }
           ]);
           break;
@@ -113,7 +113,7 @@ const clovaSkillHandler = clova.Client
             lang: 'ja',
             type: 'PlainText',
             // TODO
-            value: `${responseHelper.getsessionAttributes.answer}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
+            value: `${responseHelper.getSessionAttributes.answer}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
           }
           responseHelper.setSimpleSpeech(speech)
           break;
