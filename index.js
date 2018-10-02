@@ -2,12 +2,16 @@ const clova = require('@line/clova-cek-sdk-nodejs');
 const express = require('express');
 const bodyParser = require('body-parser');
 
+var att = {
+  answer: 'none'
+}
+
 const clovaSkillHandler = clova.Client
     .configureSkill()
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
       // TODO
-      responseHelper.setSessionAttributes.answer = 0;
+      responseHelper.setSessionAttributes(att)
 
       const launch_mp3 = process.env.LAUNCH_MP3;
       const LAUNCH_MESSAGE = '数字推測、ボクシングゲーム、ナンバーパンチに、ようこそ！'
@@ -30,6 +34,7 @@ const clovaSkillHandler = clova.Client
     .onIntentRequest(async responseHelper => {
       const intent = responseHelper.getIntentName();
       // const sessionId = responseHelper.getSessionId();
+      let att_info = responseHelper.getSessionAttributes();
       let speech;
       switch (intent) {
         case 'DescriptionIntent':
@@ -49,7 +54,9 @@ const clovaSkillHandler = clova.Client
 
         case 'StartIntent':
           const start_match_mp3 = process.env.START_MATCH_MP3;
-          responseHelper.setSessionAttributes.answer = 0;
+          
+          // TODO: remove deploy
+          responseHelper.setSessionAttributes(att)
 
           // 正解を決める
           let r;
@@ -61,7 +68,9 @@ const clovaSkillHandler = clova.Client
               number_list = number_list.slice(0,r) + number_list.slice(r+1);
           }
 
-          responseHelper.setSessionAttributes.answer = Number(valid_answer);
+          att_info.answer = Number(valid_answer);
+          responseHelper.setSessionAttributes(att_info)
+
           responseHelper.setSpeechList([
             {
               type: "URL",
@@ -102,7 +111,7 @@ const clovaSkillHandler = clova.Client
             }, {
               lang: 'ja',
               type: 'PlainText',
-              value: responseHelper.getSessionAttributes.answer + "desu"
+              value: att_info.answer + "desu"
             }
           ]);
           break;
@@ -113,7 +122,7 @@ const clovaSkillHandler = clova.Client
             lang: 'ja',
             type: 'PlainText',
             // TODO
-            value: `${responseHelper.getSessionAttributes.answer}想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
+            value: `想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
           }
           responseHelper.setSimpleSpeech(speech)
           break;
