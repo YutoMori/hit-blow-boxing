@@ -129,6 +129,7 @@ const clovaSkillHandler = clova.Client
                 value: "3ヒットです。おめでとうございます。"
               }
             ]);
+            responseHelper.endSession();
           }
           break;
 
