@@ -33,7 +33,6 @@ const clovaSkillHandler = clova.Client
     // カスタムインテント or ビルトインインテント
     .onIntentRequest(async responseHelper => {
       const intent = responseHelper.getIntentName();
-      // const sessionId = responseHelper.getSessionId();
       let att_info = responseHelper.getSessionAttributes();
       let speech;
       switch (intent) {
@@ -104,28 +103,41 @@ const clovaSkillHandler = clova.Client
               }
             }
           }
-
           responseHelper.setSessionAttributes(att_info)
-          responseHelper.setSpeechList([
-            {
-              type: "URL",
-              lang: "" ,
-              value: start_match_mp31
-            }, {
-              lang: 'ja',
-              type: 'PlainText',
-              value: numHit + "ヒット、" + numBlow + "ブロー"
-            }
-          ]);
-          break;
 
+          if(numHit <= 2){ // 2hit 以下
+            responseHelper.setSpeechList([
+              {
+                type: "URL",
+                lang: "" ,
+                value: start_match_mp31
+              }, {
+                lang: 'ja',
+                type: 'PlainText',
+                value: numHit + "ヒット、" + numBlow + "ブロー"
+              }
+            ]);
+          } else { // 3hit
+            responseHelper.setSpeechList([
+              {
+                type: "URL",
+                lang: "" ,
+                value: start_match_mp31
+              }, {
+                lang: 'ja',
+                type: 'PlainText',
+                value: "3ヒットです。おめでとうございます。"
+              }
+            ]);
+          }
+          break;
 
         default:
           speech = {
             lang: 'ja',
             type: 'PlainText',
             // TODO
-            value: `想定しないインテントです。カスタムインテントの名前が正しいかご確認ください。`
+            value: `想定しないインテントです。`
           }
           responseHelper.setSimpleSpeech(speech)
           break;
@@ -134,7 +146,6 @@ const clovaSkillHandler = clova.Client
 
     //終了時
     .onSessionEndedRequest(responseHelper => {
-      // const sessionId = responseHelper.getSessionId();
     })
     .handle();
 
