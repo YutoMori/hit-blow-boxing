@@ -74,7 +74,7 @@ const clovaSkillHandler = clova.Client
             {
               lang: 'ja',
               type: 'PlainText',
-              value: 'それじゃあ、試合を開始する開始するぞ。ファイト。'
+              value: 'それじゃあ、開始するぞ。ファイト。'
             },
             {
               type: "URL",
@@ -86,7 +86,12 @@ const clovaSkillHandler = clova.Client
 
         case 'HitIntent':
           // TODO change mp3 url
-          const start_match_mp31 = process.env.START_MATCH_MP3;
+          const swing_mp3 = process.env.SWING_MP3;
+          const blow_mp3 = process.env.BLOW_MP3;
+          const hit_mp3 = process.env.HIT_MP3;
+          const hit3_mp3 = process.env.hit3_MP3;
+          const down_mp3 = process.env.DOWN_MP3;
+
           const slots = responseHelper.getSlots();
           var ask_ans = slots.number;
           let att_ans = att_info.answer;
@@ -106,28 +111,52 @@ const clovaSkillHandler = clova.Client
           }
           responseHelper.setSessionAttributes(att_info)
 
-          var match_music = {
+          var hit_array = {
             type: "URL",
             lang: "" ,
-            value: start_match_mp31
+            value: hit_mp3
           }
-          var speechlist = {
+
+          var blow_array = {
+            type: "URL",
+            lang: "" ,
+            value: blow_mp3
+          }
+
+          var speech_array = {
             lang: 'ja',
             type: 'PlainText',
             value: numHit + "ヒット、" + numBlow + "ブロー"
           }
 
-          var array_test = [match_music]
-          array_test.push(speechlist)
+          var array_speechlist = []
+          for (let i = 0; i < numHit; i++){
+            array_speechlist.push(hit_array)
+          }
+          for (let i = 0; i < numBlow; i++){
+            array_speechlist.push(blow_array)
+          }
+          array_speechlist.push(speech_array)
 
-          if(numHit <= 2){ // 2hit 以下
-            responseHelper.setSpeechList(array_test);
-          } else { // 3hit
+
+          if (numHit == 0 && numBlow == 0){ // 0Hit 0Blow
             responseHelper.setSpeechList([
               {
                 type: "URL",
                 lang: "" ,
-                value: start_match_mp31
+                value: swing_mp3
+              }, {
+                lang: 'ja',
+                type: 'PlainText',
+                value: "0ヒット、０ブローです。頑張れー。"
+              }
+            ]);
+          } else if (numHit == 3){    // 3Hit
+            responseHelper.setSpeechList([
+              {
+                type: "URL",
+                lang: "" ,
+                value: swing_mp3
               }, {
                 lang: 'ja',
                 type: 'PlainText',
@@ -135,6 +164,8 @@ const clovaSkillHandler = clova.Client
               }
             ]);
             responseHelper.endSession();
+          } else {
+            responseHelper.setSpeechList(array_speechlist);
           }
           break;
 
