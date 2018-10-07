@@ -126,7 +126,7 @@ const clovaSkillHandler = clova.Client
           var speech_array = {
             lang: 'ja',
             type: 'PlainText',
-            value: numHit + "ヒット、" + numBlow + "ブロー"
+            value: numHit + "ヒット、" + numBlow + "ブローです。"
           }
 
           var array_speechlist = []
@@ -148,7 +148,7 @@ const clovaSkillHandler = clova.Client
               }, {
                 lang: 'ja',
                 type: 'PlainText',
-                value: "0ヒット、０ブローです。頑張れー。"
+                value: "0ヒット、０ブローです。ファイトです。"
               }
             ]);
           } else if (numHit == 3){    // 3Hit
@@ -156,7 +156,19 @@ const clovaSkillHandler = clova.Client
               {
                 type: "URL",
                 lang: "" ,
-                value: swing_mp3
+                value: hit_mp3
+              }, {
+                type: "URL",
+                lang: "" ,
+                value: hit_mp3
+              }, {
+                type: "URL",
+                lang: "" ,
+                value: hit3_mp3
+              }, {
+                type: "URL",
+                lang: "" ,
+                value: down_mp3
               }, {
                 lang: 'ja',
                 type: 'PlainText',
