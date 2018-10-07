@@ -105,22 +105,22 @@ const clovaSkillHandler = clova.Client
           }
           responseHelper.setSessionAttributes(att_info)
 
+          var match_music = {
+            type: "URL",
+            lang: "" ,
+            value: start_match_mp31
+          }
+          var speechlist = {
+            lang: 'ja',
+            type: 'PlainText',
+            value: numHit + "ヒット、" + numBlow + "ブロー"
+          }
+
+          var array_test = [match_music]
+          array_test.push(speechlist)
+
           if(numHit <= 2){ // 2hit 以下
-            responseHelper.setSpeechList([
-              {
-                type: "URL",
-                lang: "" ,
-                value: start_match_mp31
-              }, {
-                type: "URL",
-                lang: "" ,
-                value: start_match_mp31
-              }, {
-                lang: 'ja',
-                type: 'PlainText',
-                value: numHit + "ヒット、" + numBlow + "ブロー"
-              }
-            ]);
+            responseHelper.setSpeechList(array_test);
           } else { // 3hit
             responseHelper.setSpeechList([
               {
