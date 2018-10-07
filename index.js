@@ -27,11 +27,12 @@ const clovaSkillHandler = clova.Client
           value: LAUNCH_MESSAGE
         }
       ]);
-      responseHelper.setSpeechList([
+      responseHelper.setSpeechList([   // reprompt
         {
           lang: 'ja',
           type: 'PlainText',
-          value: "リプロンプトだよ！"
+          value: 'ゲームを始めたいときは、スタート、と言ってくれ。'
+                 + 'ゲームのルールがわからないときは、ルールを教えて、と言ってくれ。'
         }
       ], true);
     })
@@ -55,6 +56,14 @@ const clovaSkillHandler = clova.Client
             type: 'PlainText',
             value: DESCRIPTION_MESSAGE
           });
+          responseHelper.setSpeechList([  // reprompt
+            {
+              lang: 'ja',
+              type: 'PlainText',
+              value: 'もう一度、説明を聞きたいときは、「ルールを教えて」と言ってくれ。'
+                     + 'ゲームを始めたいときは、「スタート」と言ってくれ。'
+            }
+          ], true);
           break;
 
         case 'StartIntent':
@@ -87,6 +96,13 @@ const clovaSkillHandler = clova.Client
               value: start_match_mp3
             }
           ]);
+          responseHelper.setSpeechList([ // reprompt
+            {
+              lang: 'ja',
+              type: 'PlainText',
+              value: '例えば、１、２、３、のように言うんだ。それじゃあ、３つの数字を言ってくれ。'
+            }
+          ], true);
           break;
 
         case 'HitIntent':
@@ -191,6 +207,15 @@ const clovaSkillHandler = clova.Client
           } else {
             responseHelper.setSpeechList(array_speechlist);
           }
+
+          responseHelper.setSpeechList([ // reprompt
+            {
+              lang: 'ja',
+              type: 'PlainText',
+              value: '例えば、１、２、３、のように言うんだ。それじゃあ、３つの数字を言ってくれ。'
+            }
+          ], true);
+
           break;
 
         default:
@@ -200,6 +225,14 @@ const clovaSkillHandler = clova.Client
             value: "ごめんなさい。聞き取れませんでした。"
           }
           responseHelper.setSimpleSpeech(speech)
+
+          responseHelper.setSpeechList([ // reprompt
+            {
+              lang: 'ja',
+              type: 'PlainText',
+              value: 'もう一度、言ってくれ。'
+            }
+          ], true);
           break;
         }
       })
