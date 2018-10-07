@@ -26,7 +26,7 @@ const clovaSkillHandler = clova.Client
           value: LAUNCH_MESSAGE
         }
       ]);
-      responseHelper.setSimpleSpeech({ // reprompt
+      responseHelper.setSimpleSpeech({
           lang: 'ja',
           type: 'PlainText',
           value: 'ゲームを始めたいときは、スタート、と言ってくれ。'
@@ -34,7 +34,6 @@ const clovaSkillHandler = clova.Client
         }, true);
     })
 
-    // カスタムインテント or ビルトインインテント
     .onIntentRequest(async responseHelper => {
       const intent = responseHelper.getIntentName();
       let att_info = responseHelper.getSessionAttributes();
@@ -198,7 +197,7 @@ const clovaSkillHandler = clova.Client
             responseHelper.setSpeechList(array_speechlist);
           }
 
-          responseHelper.setSimpleSpeech( // reprompt
+          responseHelper.setSimpleSpeech(
             {
               lang: 'ja',
               type: 'PlainText',
@@ -215,7 +214,7 @@ const clovaSkillHandler = clova.Client
           }
           responseHelper.setSimpleSpeech(speech)
 
-          responseHelper.setSimpleSpeech({     // reprompt
+          responseHelper.setSimpleSpeech({
               lang: 'ja',
               type: 'PlainText',
               value: 'もう一度、言ってくれ。'
@@ -224,7 +223,6 @@ const clovaSkillHandler = clova.Client
         }
       })
 
-    //終了時
     .onSessionEndedRequest(responseHelper => {
     })
     .handle();
@@ -235,7 +233,6 @@ const clovaSkillHandler = clova.Client
     });
     app.post('/clova', clovaMiddleware, clovaSkillHandler);
     
-    // リクエストの検証を行わない
     app.post('/clova', bodyParser.json(), clovaSkillHandler);
     
     const port = process.env.PORT || 3000;
