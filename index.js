@@ -72,7 +72,7 @@ const clovaSkillHandler = clova.Client
             {
               lang: 'ja',
               type: 'PlainText',
-              value: 'それじゃあ、開始するぞ。ファイト。'
+              value: 'それじゃあ、開始するぞ。３つの数字を言ってくれ。ファイト。'
             },
             {
               type: "URL",
@@ -175,9 +175,12 @@ const clovaSkillHandler = clova.Client
                 type: "URL",
                 lang: "" ,
                 value: victory_mp3
+              }, {
+                lang: 'ja',
+                type: 'PlainText',
+                value: "もう一度遊ぶときは、「スタート」と言ってくれ。ゲームを終了したいときは、「終了する」と言ってくれ"
               }
             ]);
-            responseHelper.endSession();
           } else {
             responseHelper.setSpeechList(array_speechlist);
           }
