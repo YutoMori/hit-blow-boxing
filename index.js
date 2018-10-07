@@ -72,13 +72,14 @@ const clovaSkillHandler = clova.Client
 
           responseHelper.setSpeechList([
             {
+              lang: 'ja',
+              type: 'PlainText',
+              value: 'それじゃあ、試合を開始する開始するぞ。ファイト。'
+            },
+            {
               type: "URL",
               lang: "" ,
               value: start_match_mp3
-            }, {
-              lang: 'ja',
-              type: 'PlainText',
-              value: 'スタートインテントが起動しました。'
             }
           ]);
           break;
