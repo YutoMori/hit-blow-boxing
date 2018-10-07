@@ -89,7 +89,7 @@ const clovaSkillHandler = clova.Client
           const swing_mp3 = process.env.SWING_MP3;
           const blow_mp3 = process.env.BLOW_MP3;
           const hit_mp3 = process.env.HIT_MP3;
-          const hit3_mp3 = process.env.hit3_MP3;
+          const hit3_mp3 = process.env.HIT3_MP3;
           const down_mp3 = process.env.DOWN_MP3;
 
           const slots = responseHelper.getSlots();
