@@ -27,6 +27,13 @@ const clovaSkillHandler = clova.Client
           value: LAUNCH_MESSAGE
         }
       ]);
+      responseHelper.setSpeechList([
+        {
+          lang: 'ja',
+          type: 'PlainText',
+          value: "リプロンプトだよ！"
+        }
+      ], true);
     })
 
     // カスタムインテント or ビルトインインテント
@@ -190,8 +197,7 @@ const clovaSkillHandler = clova.Client
           speech = {
             lang: 'ja',
             type: 'PlainText',
-            // TODO
-            value: `想定しないインテントです。`
+            value: "ごめんなさい。聞き取れませんでした。"
           }
           responseHelper.setSimpleSpeech(speech)
           break;
