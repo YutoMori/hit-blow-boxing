@@ -10,7 +10,6 @@ const clovaSkillHandler = clova.Client
     .configureSkill()
     // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
-      // TODO
       responseHelper.setSessionAttributes(att)
 
       const launch_mp3 = process.env.LAUNCH_MP3;
@@ -54,7 +53,6 @@ const clovaSkillHandler = clova.Client
         case 'StartIntent':
           const start_match_mp3 = process.env.START_MATCH_MP3;
           
-          // TODO: remove deploy
           responseHelper.setSessionAttributes(att)
 
           // 正解を決める
@@ -85,12 +83,12 @@ const clovaSkillHandler = clova.Client
           break;
 
         case 'HitIntent':
-          // TODO change mp3 url
           const swing_mp3 = process.env.SWING_MP3;
           const blow_mp3 = process.env.BLOW_MP3;
           const hit_mp3 = process.env.HIT_MP3;
           const hit3_mp3 = process.env.HIT3_MP3;
           const down_mp3 = process.env.DOWN_MP3;
+          const victory_mp3 = process.env.VICTORY_MP3;
 
           const slots = responseHelper.getSlots();
           var ask_ans = slots.number;
@@ -148,7 +146,7 @@ const clovaSkillHandler = clova.Client
               }, {
                 lang: 'ja',
                 type: 'PlainText',
-                value: "0ヒット、０ブローです。ファイトです。"
+                value: " 0ヒット、０ブローです。ファイトです。"
               }
             ]);
           } else if (numHit == 3){    // 3Hit
@@ -173,6 +171,10 @@ const clovaSkillHandler = clova.Client
                 lang: 'ja',
                 type: 'PlainText',
                 value: "3ヒットです。おめでとうございます。"
+              }, {
+                type: "URL",
+                lang: "" ,
+                value: victory_mp3
               }
             ]);
             responseHelper.endSession();
