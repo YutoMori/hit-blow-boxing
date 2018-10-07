@@ -110,7 +110,11 @@ const clovaSkillHandler = clova.Client
               {
                 type: "URL",
                 lang: "" ,
-                value: start_match_mp31 + start_match_mp31
+                value: start_match_mp31
+              }, {
+                type: "URL",
+                lang: "" ,
+                value: start_match_mp31
               }, {
                 lang: 'ja',
                 type: 'PlainText',
