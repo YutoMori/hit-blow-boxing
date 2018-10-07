@@ -8,7 +8,6 @@ var att = {
 
 const clovaSkillHandler = clova.Client
     .configureSkill()
-    // スキルの起動リクエスト
     .onLaunchRequest(responseHelper => {
       responseHelper.setSessionAttributes(att)
 
@@ -27,14 +26,12 @@ const clovaSkillHandler = clova.Client
           value: LAUNCH_MESSAGE
         }
       ]);
-      responseHelper.setSpeechList([   // reprompt
-        {
+      responseHelper.setSimpleSpeech({ // reprompt
           lang: 'ja',
           type: 'PlainText',
           value: 'ゲームを始めたいときは、スタート、と言ってくれ。'
                  + 'ゲームのルールがわからないときは、ルールを教えて、と言ってくれ。'
-        }
-      ], true);
+        }, true);
     })
 
     // カスタムインテント or ビルトインインテント
@@ -49,21 +46,19 @@ const clovaSkillHandler = clova.Client
                                     + '君の回答に、ヒットとブローの数で答えるぞ。'
                                     + 'ヒットは数字も位置も同じで、ブローは数字は当たっているけど位置が違うんだ。'
                                     + '数字に重複はないから気をつけてくれ。'
-                                    + 'よくわからない場合は、検索サイトで、ヒット&ブロー ルール、で検索してくれ。'
+                                    + 'よくわからない場合は、検索サイトで、ヒット&ブロー、ルール、で検索してくれ。'
                                     + 'さあ、「スタート」と言ってゲームを始めよう。';
           responseHelper.setSimpleSpeech({
             lang: 'ja',
             type: 'PlainText',
             value: DESCRIPTION_MESSAGE
           });
-          responseHelper.setSpeechList([  // reprompt
-            {
+          responseHelper.setSimpleSpeech({
               lang: 'ja',
               type: 'PlainText',
               value: 'もう一度、説明を聞きたいときは、「ルールを教えて」と言ってくれ。'
                      + 'ゲームを始めたいときは、「スタート」と言ってくれ。'
-            }
-          ], true);
+            }, true);
           break;
 
         case 'StartIntent':
@@ -71,7 +66,6 @@ const clovaSkillHandler = clova.Client
           
           responseHelper.setSessionAttributes(att)
 
-          // 正解を決める
           let r;
           let valid_answer = "";
           let number_list = "0123456789";
@@ -96,13 +90,11 @@ const clovaSkillHandler = clova.Client
               value: start_match_mp3
             }
           ]);
-          responseHelper.setSpeechList([ // reprompt
-            {
+          responseHelper.setSimpleSpeech({
               lang: 'ja',
               type: 'PlainText',
               value: '例えば、１、２、３、のように言うんだ。それじゃあ、３つの数字を言ってくれ。'
-            }
-          ], true);
+            }, true);
           break;
 
         case 'HitIntent':
@@ -137,13 +129,11 @@ const clovaSkillHandler = clova.Client
             lang: "" ,
             value: hit_mp3
           }
-
           var blow_array = {
             type: "URL",
             lang: "" ,
             value: blow_mp3
           }
-
           var speech_array = {
             lang: 'ja',
             type: 'PlainText',
@@ -160,7 +150,7 @@ const clovaSkillHandler = clova.Client
           array_speechlist.push(speech_array)
 
 
-          if (numHit == 0 && numBlow == 0){ // 0Hit 0Blow
+          if (numHit == 0 && numBlow == 0){
             responseHelper.setSpeechList([
               {
                 type: "URL",
@@ -172,7 +162,7 @@ const clovaSkillHandler = clova.Client
                 value: " 0ヒット、０ブローです。ファイトです。"
               }
             ]);
-          } else if (numHit == 3){    // 3Hit
+          } else if (numHit == 3){
             responseHelper.setSpeechList([
               {
                 type: "URL",
@@ -208,13 +198,12 @@ const clovaSkillHandler = clova.Client
             responseHelper.setSpeechList(array_speechlist);
           }
 
-          responseHelper.setSpeechList([ // reprompt
+          responseHelper.setSimpleSpeech( // reprompt
             {
               lang: 'ja',
               type: 'PlainText',
               value: '例えば、１、２、３、のように言うんだ。それじゃあ、３つの数字を言ってくれ。'
-            }
-          ], true);
+            }, true);
 
           break;
 
@@ -226,13 +215,11 @@ const clovaSkillHandler = clova.Client
           }
           responseHelper.setSimpleSpeech(speech)
 
-          responseHelper.setSpeechList([ // reprompt
-            {
+          responseHelper.setSimpleSpeech({     // reprompt
               lang: 'ja',
               type: 'PlainText',
               value: 'もう一度、言ってくれ。'
-            }
-          ], true);
+            }, true);
           break;
         }
       })
