@@ -39,7 +39,6 @@ const clovaSkillHandler = clova.Client
       let att_info = responseHelper.getSessionAttributes();
       let speech;
       switch (intent) {
-        case 'DescriptionIntent':
         case 'Clova.GuideIntent':
           const DESCRIPTION_MESSAGE = 'ナンバーパンチのルールを説明するぞ。'
                                     + 'このゲームは3つの数字を当てるゲームだ。'
