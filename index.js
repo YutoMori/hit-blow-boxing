@@ -210,7 +210,7 @@ const clovaSkillHandler = clova.Client
           speech = {
             lang: 'ja',
             type: 'PlainText',
-            value: "ごめんなさい。聞き取れませんでした。"
+            value: "ごめんなさい。聞き取れませんでした。もう一度、言ってください。"
           }
           responseHelper.setSimpleSpeech(speech)
 
